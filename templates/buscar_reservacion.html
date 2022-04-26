@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar reservacion</title>
+</head>
+<body>
+    <div>
+        <h1>Buscar Reservacion</h1>
+        <h2>Ingrese el nombre del destino y verifique si el nombre del pasajero, correo y su aerolinea coincide</h2>
+        <h2>Si ambos datos coinciden, de clic en abordar para terminar su proceso de abordar</h2>
+        <div>
+            <form action="/reservaciones" method="POST">
+                <table>
+                    <tr>
+                        <td>Buscar destino: </td>
+                        <td>
+                            <input type="text" name="destino">
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" id="enviar" value="Reservar ahora" >
+            </form>
+        </div>
+    </div>
+</body>
+</html>

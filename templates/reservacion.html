@@ -1,0 +1,78 @@
+{% for r in reservacion %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservacion para {{r.1}}</title>
+</head>
+<body>
+    <h1>Pagina de reservacion </h1>
+    <h1>DISCLAIMER: seguimos en construccion</h1>
+    <form action="/guardar_reservacion" method="POST">
+        <table>
+            <tr>
+                <td>
+                    <label for="">Nombre Completo: </label>
+                </td>
+                <td>
+                    <input type="text" id="nombre" name="nombre" placeholder="Juan Lopez"required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Correo: </label>
+                </td>
+                <td>
+                    <input type="email" id="correo" name="correo" placeholder="nombre@dominio.com" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Telefono: </label>
+                </td>
+                <td>
+                    <input type="text" id="telefono"  name ="telefono" placeholder="+xx (xx) 123123123" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Número de tarjeta: </label>
+                </td>
+                <td>
+                    <!--<input type="text" id="tarjeta" name="tarjeta" placeholder="1111-2222-3333-4444" required>-->
+                    <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx"  name ="tarjeta" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Fecha de tarjeta: </label>
+                </td>
+                <td>
+                    <input type="text" id="fecha" name="fecha" placeholder="MM/YY" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="">Codigo de seguridad: </label>
+                </td>
+                <td>
+                    <input type="text" id="cvv" name="cvv" placeholder="CVV/CCV/CSD">
+                </td>
+            </tr>
+            <tr>
+                <input type="text" id="idvuelo" name="idvuelo" value="{{r.0}}" hidden>
+            </tr>
+            <tr>
+                
+            </tr>
+        </table>
+        <input type="submit" id="enviar" value="Reservar ahora" >
+    </form>
+</body>
+<footer>
+    <h2>Al hacer clic en reservar, estas de acuerdo con nuestra politica inexistente de manejo de informacion</h2>
+</footer>
+</html>
+{% endfor %}

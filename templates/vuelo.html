@@ -1,0 +1,56 @@
+{% for v in vuelos %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ v.1 }}</title>
+</head>
+<body>
+    <div>
+        
+        <div>
+            <h1>{{ v.1 }}</h1>
+        </div>
+
+        <div>
+            <h2>Aerolinea: {{v.4}}</h2>
+            <h2>Fecha de partida: {{v.2}} <br> </h2>
+            <h2>Hora de partida: {{v.3}}</h2>
+            
+        </div>
+        <a href="/reservacion/{{v.0}}"><h3>¿Deseas hacer una reservacion?</h3></a>
+        <!--<h3>¡Hazlo ya!, solamente rellena tus datos</h3>-->
+        <!--
+        <div>
+                    <tr>
+                        <a href="/vuelo/{{v.0}}">{{ v.1 }}</a>
+                        {{ v.2 }}
+                        {{ v.3 }}
+
+                    </tr>
+
+            <form action="/reservacion/{{v.0}}" method="POST">
+                <p>Nombre completo</p>
+                <input type="text" id="nombre">
+                <p>Correo</p>
+                <input type="text" id = "correo">
+                <p>Telefono</p>
+                <input type="text" placeholder="+lada (lada local)" id = "telefono">
+                <p>No. de tarjeta</p>
+                <input type="text" placeholder="Tarjeta" id = "tarjeta">
+                <p>Fecha de expiracion</p>
+                <input type="text" placeholder="MM/AA" id = "fecha">
+                <p>Codigo de verificación</p>
+                <input type="text" placeholder="CVV" id = "codigo">
+                <p>Clave del vuelo: </p>
+                <input type="hidden" value="{{v.0}}" id="idvuelo" readonly><br><br>
+                <input type="submit" name="Enviar" value="¿Deseas reservar?">
+            </form>
+        </div>-->
+        <h4><a href="/"><-- Volver atras</a></h4>
+        {% endfor %}
+    </div>
+</body>
+</html>

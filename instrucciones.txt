@@ -1,0 +1,18 @@
+para iniciarse en python se requiere vscode junto a flask y el plugin de mysql
+
+1 .- Abrir la carpeta en vscode, por lo general se le suele dar clic derecho y abrir con VSCODE
+
+2 .- Abrir una terminal nueva (ctrl+shift+`)
+2a.- Ai se tiene algun ambiente de desarrollo en anaconda en especifico, activarlo antes
+
+3 .- Instalar flask en la terminal, pip install -U Flask
+
+4 .- Instalar mysql para flask, pip install flask flask-mysqldb
+
+5 .- Montar la bdd en mariadb o mysql NOTA: puede que requiera ajustes extra
+
+6 .- Para ejecutar el codigo, simplemente en la terminal escriba "python app.py", la pagina donde se va a activar nuestra pagina web
+     sera http://127.0.0.1:3000
+
+Por defecto esta pagina va a entrar en el inicio de la pagina web, si queremos realizar otro tipo de cosas de administracion tendremos que
+entrar a http://127.0.0.1:3000/admin
