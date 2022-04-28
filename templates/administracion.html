@@ -7,9 +7,11 @@
     <title>Panel de administración</title>
 </head>
 <body>
+    <h1>Bienvenido: {{ current_user.nombre }}</h1>
     <h1>Panel de administración: </h1>
     <h2><a href="/agregar_vuelos">Agregar vuelos</a></h2>
     <h2><a href="/buscar_reservacion">Buscar reservacion</a></h2>
-    <h2><a href="/">Pagina de inicio</a></h2>
+    <h2><a href="/listar_vuelos">Modificar vuelos / Eliminar vuelos</a></h2>
+    <h2><a href="/logout">Cerrar sesión</a></h2>
 </body>
 </html>

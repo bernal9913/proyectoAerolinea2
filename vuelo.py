@@ -35,5 +35,12 @@ def sel_vuelo(cur, idvuelo):
     print(cur)
     return data
 
+def modificar_vuelo(idvuelo,destino,fecha,hora,aerolineaDestino):
+    cur = mysql.connection.cursor()
+    cur.execute("UPDATE vuelos SET destino=%s, fecha=%s, hora=%s, aerolineaDestino=%s WHERE idvuelo = %s",
+    (destino,fecha,hora,aerolineaDestino,idvuelo,))
+    mysql.connection.commit()
+    print("vuelo actualizado exitosamente")
+
 if __name__ == '__main__':
     sel_vuelo("2")

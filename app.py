@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
-from vuelo import cargar_vuelos, agregar_vuelo
-from reservacion import agregar_reservacion, buscar_reservacion
-
+from flask_login import LoginManager, login_user, logout_user
+from vuelo import cargar_vuelos, agregar_vuelo, modificar_vuelo
+from reservacion import agregar_reservacion, buscar_reservacion, abordar
+from models.ModelUser import ModelUser
+from models.entities.User import User
 
 app = Flask(__name__)
 
@@ -12,9 +14,15 @@ app.config['MYSQL_USER'] = 'root'
 #app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'aerolinea'
 mysql = MySQL(app)
+login_manager_app = LoginManager(app)
 
 #settings setting
 app.secret_key = 'clavebelica1'
+
+
+@login_manager_app.user_loader
+def load_user(id):
+    return ModelUser.get_by_id(mysql,id)
 
 
 #inicio del portal
@@ -27,10 +35,46 @@ def index():
     data = cargar_vuelos()
     return render_template('index.html', vuelos = data)
 
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    if request.method == 'POST':
+        print(request.form['user'])
+        print(request.form['pass'])
+        user = User(0,request.form['user'], request.form['pass'])
+        logged_user = ModelUser.login(mysql,user)
+        if logged_user!= None:
+            print("usuario logueado difernte a no")
+            if logged_user.password:
+                login_user(logged_user)
+                print("usuario logeado...")
+                #print(login_user)
+                #typeUser = ModelUser.get_type_by_user(mysql,request.form['user'])
+                #print(typeUser)
+                #uid = ModelUser.get_id_by_user(mysql,request.form['user'])
+
+                #session['tipoUser'] = typeUser
+                #user_type = ModelUser.get_by_id(mysql,user)
+                #print(user_type)
+                return redirect(url_for('admin'))
+            else:
+
+                flash("invalid password")
+        else:
+            flash("User not found ...")
+            return redirect(url_for('login'))
+
 @app.route('/admin', methods = ['GET'])
 def admin():
     if request.method == 'GET':
         return render_template('administracion.html')
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
 #pagina para agregar vuelos
 @app.route('/agregar_vuelos', methods = ['GET', 'POST'])
 def aggVuelo():
@@ -38,37 +82,65 @@ def aggVuelo():
         return render_template('agregar_vuelo.html')
     if request.method == 'POST':
         #a = request.form['idvuelo']
-        b = request.form['destino']
-        c = request.form['fecha']
-        d = request.form['hora']
-        e = request.form['aerolineadestino']
+        destino = request.form['destino']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+        aerolineadestino = request.form['aerolineadestino']
         #print(b)
         #cursor = mysql.connection.cursor()
         #b.capitalize()
         #cursor.execute('INSERT INTO vuelos (destino, fecha, hora, aerolineaDestino) VALUES(%s,%s,%s,%s)',
         #(b,c,d,e,))
         #mysql.connection.commit()
-        agregar_vuelo(b,c,d,e)
+        agregar_vuelo(destino,fecha,hora,aerolineadestino)
         flash('Vuelo añadido con exito')
         return render_template('agregar_vuelo.html')
+@app.route('/listar_vuelos', methods=['GET'])
+def listar_vuelos():
+    if request.method == 'GET':
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT idvuelo, destino, fecha, hora, aerolineadestino FROM vuelos')
+        data = cur.fetchall()
+        return render_template('listar_vuelos_mod.html', vuelos = data)
 
+@app.route('/mod_vuelo/<id>')
+def modifica_vuelo(id):
+    if request.method == 'GET':
+        #data = vuelo.sel_vuelo(idvuelo)
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT idvuelo,destino,fecha,hora,aerolineaDestino FROM vuelos WHERE idvuelo = ' + id)
+        data = cur.fetchall()
+        #data = vuelo.sel_vuelo(cur, idvuelo)
+        print(data)
+        if data == 0:
+            return render_template('no_existe.html')
+        else:
+            return render_template('modificar_vuelo.html', vuelos = data)
 
-#no sirve de nada xd
-@app.route('/administrar_vuelos', methods=['POST', 'GET'])	
-def administrar_vuelos():
+@app.route('/modificar_vuelo', methods=['POST', 'GET'])	
+def modificar_vuelo_post():
     if request.method == 'POST':
-        a = request.form['idvuelo']
-        b = request.form['destino']
-        c = request.form['fecha']
-        d = request.form['hora']
-        e = request.form['aerolineadestino']
-        print(a)
-        cursor = mysql.connection.cursor()
-        cursor.execute('INSERT INTO vuelos (idVuelo, destino, fecha, hora, aerolineaDestino) VALUES(%s,%s,%s,%s,%s)',
-        (a,b,c,d,e,))
-        mysql.connection.commit()
-        flash('Vuelo añadido con exito')
-        return redirect(url_for('/agregar_vuelos'))
+        idvuelo = request.form['idvuelo']
+        destino = request.form['destino']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+        aerolineaDestino = request.form['aerolineadestino']
+        print(idvuelo)
+        #cursor = mysql.connection.cursor()
+        #cursor.execute('INSERT INTO vuelos (idVuelo, destino, fecha, hora, aerolineaDestino) VALUES(%s,%s,%s,%s,%s)',
+        #(a,b,c,d,e,))
+        #mysql.connection.commit()
+        #flash('Vuelo añadido con exito')
+        modificar_vuelo(idvuelo,destino,fecha,hora,aerolineaDestino)
+        return redirect(url_for('admin'))
+
+@app.route('/eliminar_vuelo', methods=['POST'])
+def eliminar_vuelo(id):
+    if request.method == 'POST':
+        #a = request.form['idvuelo']
+        a = id
+        eliminar_vuelo(a)
+
 
 #pagina redireccionada con el vuelo en cuestion
 @app.route('/vuelo/<string:idvuelo>')
@@ -155,6 +227,13 @@ def buscar_reservacions():
         if data == None:
             return render_template
         return render_template('buscar_reservacionAlt.html', reservacion=data)
+
+@app.route('/actualizar_abordar', methods=['POST'])
+def abordado():
+    if request.method == 'POST':
+        a = request.form['idreservacion']
+        abordar(a)
+        return redirect(url_for('admin'))
 
 if (__name__) == '__main__':
     app.run(port=3000, debug = True)

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    Destino
+                </td>
+                <td>
+                    Fecha
+                </td>
+                <td>
+                    Hora
+                </td>
+                <td>
+                    Aerolinea destino
+                </td>
+                <td>
+                    Accion
+                </td>
+            </tr>
+        {% for vuelo in vuelos %}
+        <form action="/modificar_vuelo" method="POST">
+            <!--idvuelo, destino,fecha,hora, aerolineadestino-->
+            <table>
+                <tr>
+                    <td>
+                        <p>Ingrese destino</p>
+                    </td>
+                    <td>
+                        <input type="text" id="destino" name="destino" value="{{ vuelo.1 }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Ingrese fecha</p>
+                    </td>
+                    <td>
+                        <input type="date" id="fecha" name ="fecha" value="{{ vuelo.2 }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Ingrese hora</p>
+                    </td>
+                    <td>
+                        <input type="time" id="hora" name ="hora" value="{{ vuelo.3 }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Aerolinea de destino</p>
+                    </td>
+                    <td>
+                        <input type="text" id="aerolineadestino"  name ="aerolineadestino" value="{{ vuelo.4 }}">
+                    </td>
+                </tr>
+                <input type="text" value="{{ vuelo.0 }}" name="idvuelo" hiddden>
+            </table>
+            <input type="submit" name="enviar" value="Enviar">
+        </form>
+        {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

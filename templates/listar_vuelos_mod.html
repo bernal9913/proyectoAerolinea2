@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AeroVuelos</title>
+    <title>Document</title>
 </head>
 <body>
-    <div>
-        <h1>AeroVuelos</h1>
-        <h2>Vuelos desde Hermosillo: </h2>
-    </div>
     <div>
         <table>
             <thead>
@@ -18,19 +14,21 @@
                     <td>Destino</td>
                     <td>Fecha</td>
                     <td>Aerolinea Destino</td>
+                    <td>Accion</td>
                 </tr>
             </thead>
             <tbody>
                 {% for v in vuelos %}
                     <tr>
-                        <td><a href="/vuelo/{{v.0}}">{{ v.1 }}</a></td>
+                        <td>{{ v.1 }}</td>
                         <td>{{ v.2 }}</td>
                         <td>{{ v.3 }}</td>
+                        <td><a href="/eliminar_vuelo/{{ v.0 }}">Eliminar</a></td>
+                        <td><a href="/mod_vuelo/{{ v.0 }}">Modificar</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        
     </div>
 </body>
 </html>
