@@ -10,21 +10,21 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_DB'] = 'aerolinea'
 mysql = MySQL(app)
 
-def agregar_reservacion(Nombre,Correo,Telefono,NTarjeta,Fecha,CVV,IDVuelo):
-    print(Nombre, IDVuelo )
+def agregar_reservacion(nombre,correo,telefono,nTarjeta,fecha,cvv,idvuelo):
+    print(nombre, idvuelo )
     cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO reservacion (Nombre, Correo, Telefono, NTarjeta, Fecha, CVV, IDVuelo) VALUES(%s,%s,%s,%s,%s,%s,%s)',
-    (Nombre, Correo, Telefono, NTarjeta, Fecha, CVV, IDVuelo,))
+    cursor.execute('INSERT INTO reservacion (combre, correo, telefono, nTarjeta, fecha, cvv, idvuelo) VALUES(%s,%s,%s,%s,%s,%s,%s)',
+    (nombre, correo, telefono, nTarjeta, fecha, cvv, idvuelo,))
     mysql.connection.commit()
     print("Reservacion agregada con exito")
 
 def buscar_reservacion(data):
-    q = "SELECT R.IDReservacion, R.Nombre, R.Correo, V.aerolineaDestino FROM reservacion R JOIN vuelos V ON R.IDVuelo = V.idvuelo WHERE V.destino = '" + data + "'"
+    q = "SELECT R.ideservacion, R.nombre, R.correo, V.aerolineaDestino FROM reservacion R JOIN vuelos V ON R.idvuelo = V.idvuelo WHERE V.destino = '" + data + "'"
     print(q)
 
-def abordar(IDReservacion):
-    print(IDReservacion)
+def abordar(idreservacion):
+    print(idreservacion)
     cursor = mysql.connection.cursor()
-    cursor.execute('UPDATE reservacion SET abordado = "SI" WHERE IDReservacion = ' + IDReservacion)
+    cursor.execute('UPDATE reservacion SET abordado = "SI" WHERE idreservacion = ' + idreservacion)
     mysql.connection.commit()
     print("Usuario abordado exitosamente")

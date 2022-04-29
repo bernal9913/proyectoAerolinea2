@@ -14,7 +14,7 @@ mysql = MySQL(app)
 app.secret_key = 'clavebelica1'
 def cargar_vuelos():
     cur = mysql.connection.cursor()
-    cur.execute('SELECT idvuelo,destino,fecha,aerolineaDestino FROM vuelos')
+    cur.execute('SELECT idvuelo,destino,fecha,hora,aerolineaDestino FROM vuelos')
     data = cur.fetchall()
     print(data)
     return data 
@@ -41,6 +41,12 @@ def modificar_vuelo(idvuelo,destino,fecha,hora,aerolineaDestino):
     (destino,fecha,hora,aerolineaDestino,idvuelo,))
     mysql.connection.commit()
     print("vuelo actualizado exitosamente")
+
+def eliminar_vuelo(idvuelo):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM vuelos WHERE idvuelo = %s", (idvuelo,))
+    mysql.connection.commit()
+    print("vuelo eliminado exitosamente")
 
 if __name__ == '__main__':
     sel_vuelo("2")

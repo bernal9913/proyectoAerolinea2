@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, login_user, logout_user
-from vuelo import cargar_vuelos, agregar_vuelo, modificar_vuelo
+from vuelo import cargar_vuelos, agregar_vuelo, modificar_vuelo, eliminar_vuelo
 from reservacion import agregar_reservacion, buscar_reservacion, abordar
 from models.ModelUser import ModelUser
 from models.entities.User import User
@@ -33,8 +33,9 @@ def index():
     #data = cur.fetchall()
     #print(data)
     data = cargar_vuelos()
-    return render_template('index.html', vuelos = data)
+    return render_template('vuelos.html', vuelos = data)
 
+#login para admin
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -65,11 +66,13 @@ def login():
             flash("User not found ...")
             return redirect(url_for('login'))
 
+#menu para admin 
 @app.route('/admin', methods = ['GET'])
 def admin():
     if request.method == 'GET':
         return render_template('administracion.html')
 
+#logout de admin
 @app.route('/logout')
 def logout():
     logout_user()
@@ -95,6 +98,8 @@ def aggVuelo():
         agregar_vuelo(destino,fecha,hora,aerolineadestino)
         flash('Vuelo añadido con exito')
         return render_template('agregar_vuelo.html')
+
+
 @app.route('/listar_vuelos', methods=['GET'])
 def listar_vuelos():
     if request.method == 'GET':
@@ -134,12 +139,13 @@ def modificar_vuelo_post():
         modificar_vuelo(idvuelo,destino,fecha,hora,aerolineaDestino)
         return redirect(url_for('admin'))
 
-@app.route('/eliminar_vuelo', methods=['POST'])
-def eliminar_vuelo(id):
-    if request.method == 'POST':
+@app.route('/eliminar_vuelo/<id>', methods=['GET'])
+def elimi_vuelo(id):
+    if request.method == 'GET':
         #a = request.form['idvuelo']
         a = id
         eliminar_vuelo(a)
+        return redirect(url_for('admin'))
 
 
 #pagina redireccionada con el vuelo en cuestion
@@ -156,7 +162,7 @@ def vuelo(idvuelo):
             return render_template('no_existe.html')
         else:
             return render_template('vuelo.html', vuelos = data)
-            #return render_template('index.html', vuelos = data)
+            #return render_template('vuelos.html', vuelos = data)
         #return render_template('vuelo.html', vuelos = data)
     
 #pagina para relizar la reservacion
@@ -219,7 +225,7 @@ def buscar_reservacions():
         a = request.form.get('destino')
         cur = mysql.connection.cursor()
         #query = buscar_reservacion(a)
-        cur.execute("SELECT R.IDReservacion, R.Nombre, R.Correo, V.aerolineaDestino, R.abordado FROM reservacion R JOIN vuelos V ON R.IDVuelo = V.idvuelo WHERE V.destino = '" + a + "'")
+        cur.execute("SELECT R.idreservacion, R.nombre, R.correo, V.aerolineaDestino, R.abordado FROM reservacion R JOIN vuelos V ON R.idvuelo = V.idvuelo WHERE V.destino = '" + a + "'")
         #cur.execute(query)
         data = cur.fetchall()
         #buscar_reservacion(data)

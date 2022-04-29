@@ -4,9 +4,9 @@ from .entities.User import User
 class ModelUser():
 
     @classmethod
-    def login(self, db, user):
+    def login(self, mysql, user):
         try:
-            cursor = db.connection.cursor()
+            cursor = mysql.connection.cursor()
             sql = """SELECT idUser, user, password, nombre FROM adminuser WHERE user = '{}'""".format(user.user)
             cursor.execute(sql)
             row = cursor.fetchone()
