@@ -1,3 +1,3 @@
 # proyectoAerolinea2
 
-Proyecto final para la materia de ing. en software del toyota
+Proyecto final para la materia de ing. en software
