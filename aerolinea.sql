@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2022 at 10:10 AM
+-- Generation Time: Apr 30, 2022 at 05:17 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -48,15 +48,15 @@ INSERT INTO `adminuser` (`idUser`, `user`, `password`, `nombre`) VALUES
 --
 
 CREATE TABLE `reservacion` (
-  `IDReservacion` int(10) NOT NULL,
-  `Nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `Correo` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `Telefono` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `idreservacion` int(10) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `correo` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fechaReservacion` varchar(255) COLLATE utf8_spanish_ci NOT NULL DEFAULT current_timestamp(),
-  `NTarjeta` varchar(19) COLLATE utf8_spanish_ci NOT NULL,
-  `Fecha` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
-  `CVV` varchar(3) COLLATE utf8_spanish_ci NOT NULL,
-  `IDVuelo` int(10) NOT NULL,
+  `nTarjeta` varchar(19) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
+  `cvv` varchar(3) COLLATE utf8_spanish_ci NOT NULL,
+  `idvuelo` int(10) NOT NULL,
   `abordado` varchar(2) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'NO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -64,7 +64,7 @@ CREATE TABLE `reservacion` (
 -- Dumping data for table `reservacion`
 --
 
-INSERT INTO `reservacion` (`IDReservacion`, `Nombre`, `Correo`, `Telefono`, `fechaReservacion`, `NTarjeta`, `Fecha`, `CVV`, `IDVuelo`, `abordado`) VALUES
+INSERT INTO `reservacion` (`idreservacion`, `nombre`, `correo`, `telefono`, `fechaReservacion`, `nTarjeta`, `fecha`, `cvv`, `idvuelo`, `abordado`) VALUES
 (1, 'Carlos Ramirez', 'carlos@gmail.com', '123333', '2022-04-22 21:37:10', '2147483647', '12/11', '123', 1, 'SI'),
 (2, 'Ely', 'ely@gmail.com', '+52111111', '2022-04-22 21:37:10', '1111222233334444', '11/11', '123', 1, 'NO'),
 (3, 'Bryant Amaro ', 'amaro@runrun.com', '+52 1122333', '2022-04-22 21:38:55', '1234567891123456', '11/22', '123', 4, 'SI'),
@@ -106,14 +106,11 @@ INSERT INTO `vuelos` (`idvuelo`, `destino`, `fecha`, `hora`, `aerolineaDestino`)
 (7, 'Cancun', '2022-04-05', '11:33', 'Aeromexico'),
 (8, 'Dubai', '2022-10-28', '12:33', 'calafia'),
 (9, 'Toronto', '2022-05-03', '10:00', 'Delta Airlines'),
-(10, 'Quebec', 'mayo 4', '11:33', 'Delta Airlines'),
-(11, 'San Andreas', 'mayo 6', '10:30', 'Fiction Airways'),
-(12, 'San Fierro', 'mayo 6', '13:30', 'Fiction Airways'),
-(13, 'Las Venturas', 'mayo 6', '14:30', 'Fiction Airways'),
-(14, 'Liberty City', 'mayo 6 ', '17:00', 'Fiction Airways'),
-(15, 'Rabat', 'mayo 7', '01:10', 'American Airways'),
-(16, 'Berlin', 'mayo 30', '17:30', 'Aeromexico'),
-(17, 'Puerto Vallarta', 'mayo 20', '10:30', 'Aeromexico');
+(10, 'Quebec', '2022-05-04', '11:33', 'Delta Airlines'),
+(11, 'San Andreas', '2022-05-06', '10:30', 'Fiction Airways'),
+(12, 'San Fierro', '2022-05-06', '13:30', 'Fiction Airways'),
+(13, 'Las Venturas', '2022-05-06', '14:30', 'Fiction Airways'),
+(16, 'Berlin', '2022-05-30', '17:30', 'Aeromexico');
 
 --
 -- Indexes for dumped tables
@@ -129,7 +126,7 @@ ALTER TABLE `adminuser`
 -- Indexes for table `reservacion`
 --
 ALTER TABLE `reservacion`
-  ADD PRIMARY KEY (`IDReservacion`);
+  ADD PRIMARY KEY (`idreservacion`);
 
 --
 -- Indexes for table `vuelos`
@@ -151,7 +148,7 @@ ALTER TABLE `adminuser`
 -- AUTO_INCREMENT for table `reservacion`
 --
 ALTER TABLE `reservacion`
-  MODIFY `IDReservacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idreservacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `vuelos`
