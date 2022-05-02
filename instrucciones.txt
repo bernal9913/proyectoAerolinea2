@@ -15,4 +15,13 @@ para iniciarse en python se requiere vscode junto a flask y el plugin de mysql
      sera http://127.0.0.1:3000
 
 Por defecto esta pagina va a entrar en el inicio de la pagina web, si queremos realizar otro tipo de cosas de administracion tendremos que
-entrar a http://127.0.0.1:3000/admin
+entrar a http://127.0.0.1:3000/login e iniciar session
+
+
+Usuario admin: bernal
+contraseña admin: asd
+
+
+Modulos de python necesarios
+pip install -U Flask
+pip install flask flask-login flask-mysqldb flask-WTF

@@ -13,7 +13,7 @@ mysql = MySQL(app)
 def agregar_reservacion(nombre,correo,telefono,nTarjeta,fecha,cvv,idvuelo):
     print(nombre, idvuelo )
     cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO reservacion (combre, correo, telefono, nTarjeta, fecha, cvv, idvuelo) VALUES(%s,%s,%s,%s,%s,%s,%s)',
+    cursor.execute('INSERT INTO reservacion (nombre, correo, telefono, nTarjeta, fecha, cvv, idvuelo) VALUES(%s,%s,%s,%s,%s,%s,%s)',
     (nombre, correo, telefono, nTarjeta, fecha, cvv, idvuelo,))
     mysql.connection.commit()
     print("Reservacion agregada con exito")

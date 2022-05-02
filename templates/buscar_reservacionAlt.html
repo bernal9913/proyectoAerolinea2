@@ -32,9 +32,10 @@
                     <td>{{ r.2 }}</td>
                     <td>{{ r.3 }}</td>
                     <td>{{ r.4 }}</td>
-                    <td><input type="text" name="idreservacion" value ="{{ r.0 }}"></td>
+                    <td><input type="text" name="idreservacion" value ="{{ r.0 }}" hidden></td>
                     {% if r.4 == 'NO'%}
-                    <td><input type="submit" value="Abordar pasajero"></td>
+                    <td><a href="/mod_abordar/{{ r.0 }}">Abordar pasajero</a></td>
+                    </form>
                     {% endif %}
                 </tr>
                 {% endfor %}

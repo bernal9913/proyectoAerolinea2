@@ -241,5 +241,11 @@ def abordado():
         abordar(a)
         return redirect(url_for('admin'))
 
+@app.route('/mod_abordar/<id>', methods=['GET'])
+def abordsasdasd(id):
+    if request.method == 'GET':
+        a = id
+        abordar(a)
+        return redirect(url_for('admin'))
 if (__name__) == '__main__':
     app.run(port=3000, debug = True)

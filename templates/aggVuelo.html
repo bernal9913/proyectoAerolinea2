@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar vuelos</title>
+</head>
+<body>
+    
+    <h1>Agregar vuelos a la lista</h1>
+    <form action="/agregar_vuelos" method="POST">
+        <!--idvuelo, destino,fecha,hora, aerolineadestino-->
+        <table>
+            <tr>
+                <td>
+                    <p>Ingrese destino</p>
+                </td>
+                <td>
+                    <input type="text" id="destino" name="destino">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Ingrese fecha</p>
+                </td>
+                <td>
+                    <input type="text" id="fecha" name ="fecha" placeholder="mes dia ">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Ingrese hora</p>
+                </td>
+                <td>
+                    <input type="text" id="hora" name ="hora"placeholder="hh:mm">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>aerolineadestino</p>
+                </td>
+                <td>
+                    <input type="text" id="aerolineadestino"  name ="aerolineadestino"placeholder="nombre aerolinea">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+    <h2><a href="/admin"><- Volver atras</a></h2>
+</body>
+</html>
